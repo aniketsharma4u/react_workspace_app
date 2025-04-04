@@ -12,9 +12,10 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::all();
+        $unitsData = Unit::with('unitType')->orderByDesc('unit_id')->paginate(10);
+        // dd($unitsData);
         return inertia('units/unit-list', [
-            'units' => $units,
+            'unitsData' => $unitsData,
         ]);
     }
 
