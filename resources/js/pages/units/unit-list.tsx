@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -65,27 +65,36 @@ interface PaginatedUnitsResponse {
 }
 
 export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsResponse }) {
-    // console.log('unitsData', unitsData);
+    console.log('unitsData', unitsData);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Units" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Table>
+                <Table className='text-xs'>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Invoice</TableHead>
+                            <TableHead>Unit Type</TableHead>
+                            <TableHead>Unit No.</TableHead>
+                            <TableHead>Floor No.</TableHead>
+                            <TableHead>Unit Size(Sq.m)</TableHead>
+                            <TableHead>Min Amount</TableHead>
+                            <TableHead>Max Amount</TableHead>
                             <TableHead>Status</TableHead>
-                            <TableHead>Method</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">INV001</TableCell>
-                            <TableCell>Paid</TableCell>
-                            <TableCell>Credit Card</TableCell>
-                            <TableCell className="text-right">$250.00</TableCell>
-                        </TableRow>
+                        {unitsData.data &&
+                            unitsData.data.map((unit, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{unit.unit_type.unit_name}</TableCell>
+                                    <TableCell>{unit.unit_no}</TableCell>
+                                    <TableCell>{unit.floor_no}</TableCell>
+                                    <TableCell>{unit.unit_size_sqm}</TableCell>
+                                    <TableCell>{unit.unit_min_amount}</TableCell>
+                                    <TableCell>{unit.unit_max_amount}</TableCell>
+                                    <TableCell>{unit.status === 1 ? 'Active' : 'Inactive'}</TableCell>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </div>
