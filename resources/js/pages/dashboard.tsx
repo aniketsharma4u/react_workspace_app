@@ -15,12 +15,10 @@ export default function Dashboard() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="@container/main mb-10 flex h-full flex-1 flex-col gap-2">
-                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+            <div className="@container/main flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+                <div className="flex flex-col gap-4 md:gap-6">
                     <SectionCards />
-                    <div className="px-4 lg:px-6">
-                        <ChartAreaInteractive />
-                    </div>
+                    <ChartAreaInteractive />
                 </div>
             </div>
         </AppLayout>
