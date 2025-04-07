@@ -13,8 +13,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    Route::get('/units-list', [UnitController::class, 'index'])->name('units.index');
+    // Unit routes
+    Route::group(['prefix' => 'units'], function () {
+        Route::get('/units-list', [UnitController::class, 'index'])->name('units.index');
+        Route::get('/create-unit', [UnitController::class, 'create'])->name('unit.create');
+        Route::post('/store-unit', [UnitController::class, 'store'])->name('unit.store');
+    });
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

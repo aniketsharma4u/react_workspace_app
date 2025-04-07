@@ -14,7 +14,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Units',
-        href: '/units-list',
+        href: route('units.index'),
         icon: LayoutDashboard,
     },
 ];

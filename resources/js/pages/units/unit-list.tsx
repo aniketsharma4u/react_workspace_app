@@ -1,12 +1,18 @@
+import Heading from '@/components/heading';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
+import { CirclePlus } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
+        title: 'Dashboard',
+        href: route('dashboard'),
+    },
+    {
         title: 'Manage Units',
-        href: '/units-list',
+        href: route('units.index'),
     },
 ];
 
@@ -65,12 +71,18 @@ interface PaginatedUnitsResponse {
 }
 
 export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsResponse }) {
-    console.log('unitsData', unitsData);
+    // console.log('unitsData', unitsData);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Units" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Table className='text-xs'>
+            <div className="flex h-full flex-1 flex-col rounded-xl p-4">
+                <Heading title="Units" description="Manage all units." />
+                <div className="flex items-center justify-end text-xs hover:underline mb-3">
+                    <Link className="flex items-center gap-1 font-bold" href={route('unit.create')}>
+                        <CirclePlus size={15} /> Add Unit
+                    </Link>
+                </div>
+                <Table className="text-xs">
                     <TableHeader>
                         <TableRow>
                             <TableHead>Unit Type</TableHead>
@@ -83,7 +95,7 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {unitsData.data &&
+                        {unitsData.data.length > 0 ? (
                             unitsData.data.map((unit, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{unit.unit_type.unit_name}</TableCell>
@@ -94,7 +106,14 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                                     <TableCell>{unit.unit_max_amount}</TableCell>
                                     <TableCell>{unit.status === 1 ? 'Active' : 'Inactive'}</TableCell>
                                 </TableRow>
-                            ))}
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={7} className="text-center text-sm">
+                                    No units found.
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </div>

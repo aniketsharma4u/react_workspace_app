@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Models\UnitType;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
@@ -24,7 +25,11 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        $getUnitTypes = UnitType::where('status', 1)->get();
+        // dd($getUnitTypes);
+        return inertia('units/create-unit', [
+            'unitTypes' => $getUnitTypes,
+        ]);
     }
 
     /**
@@ -32,7 +37,24 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validataData = $request->validate([
+            'unit_type' => 'required|numeric',
+            'unit_no' => 'required|unique:units,unit_no',
+            'floor_no' => 'required|numeric',
+            'unit_size_sqm' => 'required|numeric',
+            'unit_min_amount' => 'required|numeric',
+            'unit_max_amount' => 'required|numeric',
+        ]);
+        $validataData['unique_unit_id'] = $this->generateUniqueIds();
+
+        $createUnit = Unit::create($validataData);
+
+        if ($createUnit) {
+            return redirect()->route('units.index')->with('success', 'Unit Created Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
