@@ -39,7 +39,7 @@ class UnitController extends Controller
     {
         // dd($request->all());
         $validataData = $request->validate([
-            'unit_type' => 'required|numeric',
+            'unit_type' => 'required|numeric|min:1',
             'unit_no' => 'required|unique:units,unit_no',
             'floor_no' => 'required|numeric',
             'unit_size_sqm' => 'required|numeric',
@@ -87,5 +87,18 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         //
+    }
+    public function checkUnitNumber(Request $request)
+    {
+        $unit_no = $request->unit_no;
+        $exists = Unit::where('unit_no', $unit_no)->exists();
+        return response()->json(!$exists);
+    }
+
+    public function getUnitsByType(Request $request)
+    {
+        $unitTypeId = $request->unitTypeId;
+        $units = Unit::where(['unit_type' => $unitTypeId, 'status' => 1])->get();
+        return response()->json($units);
     }
 }
