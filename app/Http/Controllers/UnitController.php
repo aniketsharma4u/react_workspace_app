@@ -39,12 +39,21 @@ class UnitController extends Controller
     {
         // dd($request->all());
         $validataData = $request->validate([
-            'unit_type' => 'required|numeric|min:1',
+            'unit_type' => [
+                'required',
+                'numeric',
+                'min:1',
+                function ($attribute, $value, $fail) {
+                    if (!UnitType::where('unit_type_id', $value)->exists()) {
+                        $fail('The selected unit type is invalid.');
+                    }
+                },
+            ],
             'unit_no' => 'required|unique:units,unit_no',
-            'floor_no' => 'required|numeric',
-            'unit_size_sqm' => 'required|numeric',
-            'unit_min_amount' => 'required|numeric',
-            'unit_max_amount' => 'required|numeric',
+            'floor_no' => 'required|numeric|min:1',
+            'unit_size_sqm' => 'required|numeric|min:1',
+            'unit_min_amount' => 'required|numeric|min:1',
+            'unit_max_amount' => 'required|numeric|min:1|gt:unit_min_amount',
         ]);
         $validataData['unique_unit_id'] = $this->generateUniqueIds();
 

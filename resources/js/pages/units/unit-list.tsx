@@ -1,4 +1,14 @@
 import Heading from '@/components/heading';
+import { Button } from '@/components/ui/button';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -49,7 +59,7 @@ interface Unit {
 }
 
 interface PaginationLink {
-    url: string | null;
+    url: string;
     label: string;
     active: boolean;
 }
@@ -71,19 +81,25 @@ interface PaginatedUnitsResponse {
 }
 
 export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsResponse }) {
-    // console.log('unitsData', unitsData);
+    console.log('unitsData', unitsData);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Units" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
                 <Heading title="Units" description="Manage all units." />
-                <div className="flex items-center justify-end text-xs hover:underline mb-3">
-                    <Link className="flex items-center gap-1 font-bold" href={route('unit.create')}>
-                        <CirclePlus size={15} /> Add Unit
-                    </Link>
+                <div className="flex items-center justify-between text-xs mb-3">
+                    <div className="flex items-center gap-1">
+                        <span>Total Units:</span>
+                        <span className='font-bold'>{unitsData.total}</span>
+                    </div>
+                    <Button asChild variant="outline">
+                        <Link className="flex items-center gap-1 font-bold" href={route('unit.create')}>
+                            <CirclePlus size={15} /> Add Unit
+                        </Link>
+                    </Button>
                 </div>
                 <Table className="text-xs">
-                    <TableHeader>
+                    <TableHeader className='bg-gray-200'>
                         <TableRow>
                             <TableHead>Unit Type</TableHead>
                             <TableHead>Unit No.</TableHead>
@@ -116,6 +132,32 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                         )}
                     </TableBody>
                 </Table>
+                <div >
+                    <Pagination className="mt-4 justify-end">
+                        <PaginationContent>
+                            {unitsData.prev_page_url && (
+                                <PaginationItem>
+                                    <PaginationPrevious href={unitsData.prev_page_url} />
+                                </PaginationItem>
+                            )}
+
+                            {unitsData.links.slice(1, -1).map((link, index) => (
+                                <PaginationItem key={index}>
+                                    <PaginationLink isActive={link.active} href={link.url}>{link.label}</PaginationLink>
+                                </PaginationItem>
+                            ))}
+
+                            {/* <PaginationItem>
+                                <PaginationEllipsis />
+                            </PaginationItem> */}
+                            {unitsData.next_page_url && (
+                                <PaginationItem>
+                                    <PaginationNext href={unitsData.next_page_url} />
+                                </PaginationItem>
+                            )}
+                        </PaginationContent>
+                    </Pagination>
+                </div>
             </div>
         </AppLayout>
     );

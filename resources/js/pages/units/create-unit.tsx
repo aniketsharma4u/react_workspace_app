@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -50,7 +50,23 @@ export default function CreateUnit({ unitTypes }: { unitTypes: UnitType[] }) {
         unit_max_amount: '',
     });
 
-    // console.log(errors);
+    const [unitPrefix, setUnitPrefix] = useState(''); // State to store the prefix
+
+    const handleUnitTypeChange = (value: string) => {
+        const selectedUnitType = unitTypes.find((unitType) => unitType.unit_type_id === Number(value));
+        const newPrefix = selectedUnitType?.unit_prefix || '';
+        setUnitPrefix(newPrefix); // Update the prefix
+        setData('unit_type', Number(value));
+        setData('unit_no', newPrefix); // Reset the unit_no field with the new prefix
+    };
+
+    const handleUnitNoChange = (value: string) => {
+        // Ensure the prefix is always present and cannot be removed
+        if (!value.startsWith(unitPrefix)) {
+            value = unitPrefix; // Reset to prefix if it's removed
+        }
+        setData('unit_no', value);
+    };
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -67,7 +83,7 @@ export default function CreateUnit({ unitTypes }: { unitTypes: UnitType[] }) {
                         <form className="grid grid-cols-2 items-start gap-6" onSubmit={handleSubmit}>
                             <div className="grid gap-2">
                                 <Label htmlFor="unit_type">Unit Type *</Label>
-                                <Select onValueChange={(value) => setData('unit_type', Number(value))} required>
+                                <Select onValueChange={handleUnitTypeChange} required>
                                     <SelectTrigger className="mt-1 w-full">
                                         <SelectValue placeholder="Select Unit Type" />
                                     </SelectTrigger>
@@ -85,17 +101,17 @@ export default function CreateUnit({ unitTypes }: { unitTypes: UnitType[] }) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="unit_no">Unit No.(s) *</Label>
+                                <Label htmlFor="unit_no">Unit No. *</Label>
 
                                 <Input
                                     id="unit_no"
                                     type="text"
                                     className="mt-1 block w-full"
                                     value={data.unit_no}
-                                    onChange={(e) => setData('unit_no', e.target.value)}
+                                    onChange={(e) => handleUnitNoChange(e.target.value)}
                                     required
                                     autoComplete="Unit No."
-                                    placeholder="1001"
+                                    placeholder={`${unitPrefix}1001`} // Show the prefix in the placeholder
                                 />
 
                                 <InputError message={errors.unit_no} />
