@@ -1,14 +1,9 @@
 import Heading from '@/components/heading';
+import { TablePagination } from '@/components/table-pagination';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from '@/components/ui/pagination';
+import { Card, CardContent } from '@/components/ui/card';
+import { PaginationLink } from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -81,16 +76,21 @@ interface PaginatedUnitsResponse {
 }
 
 export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsResponse }) {
-    console.log('unitsData', unitsData);
+    const paginationData = {
+        next_page_url: unitsData.next_page_url,
+        prev_page_url: unitsData.prev_page_url,
+        links: unitsData.links,
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Units" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <Heading title="Units" description="Manage all units." />
-                <div className="flex items-center justify-between text-xs mb-3">
+                <Heading title="Units" description="List of all units." />
+                <div className="mb-3 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1">
                         <span>Total Units:</span>
-                        <span className='font-bold'>{unitsData.total}</span>
+                        <span className="font-bold">{unitsData.total}</span>
                     </div>
                     <Button asChild variant="outline">
                         <Link className="flex items-center gap-1 font-bold" href={route('unit.create')}>
@@ -98,66 +98,45 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                         </Link>
                     </Button>
                 </div>
-                <Table className="text-xs">
-                    <TableHeader className='bg-gray-200 dark:bg-accent'>
-                        <TableRow>
-                            <TableHead>Unit Type</TableHead>
-                            <TableHead>Unit No.</TableHead>
-                            <TableHead>Floor No.</TableHead>
-                            <TableHead>Unit Size(Sq.m)</TableHead>
-                            <TableHead>Min Amount</TableHead>
-                            <TableHead>Max Amount</TableHead>
-                            <TableHead>Status</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {unitsData.data.length > 0 ? (
-                            unitsData.data.map((unit, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{unit.unit_type.unit_name}</TableCell>
-                                    <TableCell>{unit.unit_no}</TableCell>
-                                    <TableCell>{unit.floor_no}</TableCell>
-                                    <TableCell>{unit.unit_size_sqm}</TableCell>
-                                    <TableCell>{unit.unit_min_amount}</TableCell>
-                                    <TableCell>{unit.unit_max_amount}</TableCell>
-                                    <TableCell>{unit.status === 1 ? 'Active' : 'Inactive'}</TableCell>
+                <Card>
+                    <CardContent>
+                        <Table className="text-xs">
+                            <TableHeader className="dark:bg-accent bg-gray-200">
+                                <TableRow>
+                                    <TableHead>Unit Type</TableHead>
+                                    <TableHead>Unit No.</TableHead>
+                                    <TableHead>Floor No.</TableHead>
+                                    <TableHead>Unit Size(Sq.m)</TableHead>
+                                    <TableHead>Min Amount</TableHead>
+                                    <TableHead>Max Amount</TableHead>
+                                    <TableHead>Status</TableHead>
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={7} className="text-center text-sm">
-                                    No units found.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-                <div >
-                    <Pagination className="mt-4 justify-end">
-                        <PaginationContent>
-                            {unitsData.prev_page_url && (
-                                <PaginationItem>
-                                    <PaginationPrevious href={unitsData.prev_page_url} />
-                                </PaginationItem>
-                            )}
-
-                            {unitsData.links.slice(1, -1).map((link, index) => (
-                                <PaginationItem key={index}>
-                                    <PaginationLink isActive={link.active} href={link.url}>{link.label}</PaginationLink>
-                                </PaginationItem>
-                            ))}
-
-                            {/* <PaginationItem>
-                                <PaginationEllipsis />
-                            </PaginationItem> */}
-                            {unitsData.next_page_url && (
-                                <PaginationItem>
-                                    <PaginationNext href={unitsData.next_page_url} />
-                                </PaginationItem>
-                            )}
-                        </PaginationContent>
-                    </Pagination>
-                </div>
+                            </TableHeader>
+                            <TableBody>
+                                {unitsData.data.length > 0 ? (
+                                    unitsData.data.map((unit, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{unit.unit_type.unit_name}</TableCell>
+                                            <TableCell>{unit.unit_no}</TableCell>
+                                            <TableCell>{unit.floor_no}</TableCell>
+                                            <TableCell>{unit.unit_size_sqm}</TableCell>
+                                            <TableCell>{unit.unit_min_amount}</TableCell>
+                                            <TableCell>{unit.unit_max_amount}</TableCell>
+                                            <TableCell>{unit.status === 1 ? <Badge className='text-xs bg-green-700'>Available</Badge> : <Badge className='text-xs bg-red-700'>Booked</Badge>}</TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={7} className="text-center text-sm">
+                                            No units found.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                        <TablePagination paginationData={paginationData} />
+                    </CardContent>
+                </Card>
             </div>
         </AppLayout>
     );
