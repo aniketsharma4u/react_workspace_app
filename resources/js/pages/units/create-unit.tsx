@@ -83,7 +83,7 @@ export default function CreateUnit({ unitTypes }: { unitTypes: UnitType[] }) {
                         <form className="grid grid-cols-2 items-start gap-6" onSubmit={handleSubmit}>
                             <div className="grid gap-2">
                                 <Label htmlFor="unit_type">Unit Type *</Label>
-                                <Select onValueChange={handleUnitTypeChange} required>
+                                <Select onValueChange={handleUnitTypeChange} required defaultValue={data.unit_type.toString()}>
                                     <SelectTrigger className="mt-1 w-full">
                                         <SelectValue placeholder="Select Unit Type" />
                                     </SelectTrigger>

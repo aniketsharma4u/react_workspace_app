@@ -90,7 +90,7 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                         <span className="font-bold">{tenantsData.total}</span>
                     </div>
                     <Button asChild variant="outline">
-                        <Link className="flex items-center gap-1 font-bold" href={route('tenant.create')}>
+                        <Link prefetch className="flex items-center gap-1 font-bold" href={route('tenant.create')}>
                             <CirclePlus size={15} /> Add Tenant
                         </Link>
                     </Button>
@@ -140,8 +140,8 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={7} className="text-center text-sm">
-                                            No units found.
+                                        <TableCell colSpan={8} className="text-center text-sm">
+                                            No tenants found.
                                         </TableCell>
                                     </TableRow>
                                 )}

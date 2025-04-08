@@ -93,7 +93,7 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                         <span className="font-bold">{unitsData.total}</span>
                     </div>
                     <Button asChild variant="outline">
-                        <Link className="flex items-center gap-1 font-bold" href={route('unit.create')}>
+                        <Link prefetch className="flex items-center gap-1 font-bold" href={route('unit.create')}>
                             <CirclePlus size={15} /> Add Unit
                         </Link>
                     </Button>
@@ -122,7 +122,13 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                                             <TableCell>{unit.unit_size_sqm}</TableCell>
                                             <TableCell>{unit.unit_min_amount}</TableCell>
                                             <TableCell>{unit.unit_max_amount}</TableCell>
-                                            <TableCell>{unit.status === 1 ? <Badge className='text-xs bg-green-700'>Available</Badge> : <Badge className='text-xs bg-red-700'>Booked</Badge>}</TableCell>
+                                            <TableCell>
+                                                {unit.status === 1 ? (
+                                                    <Badge className="bg-green-700 text-xs">Available</Badge>
+                                                ) : (
+                                                    <Badge className="bg-red-700 text-xs">Booked</Badge>
+                                                )}
+                                            </TableCell>
                                         </TableRow>
                                     ))
                                 ) : (

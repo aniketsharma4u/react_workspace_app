@@ -27,7 +27,7 @@ class TenantController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('tenants/create-tenant');
     }
 
     /**
