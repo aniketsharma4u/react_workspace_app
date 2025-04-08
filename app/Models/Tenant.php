@@ -43,4 +43,5 @@ class Tenant extends Model
     {
         return $this->hasOne(User::class, 'id', 'created_by');
     }
+
 }
