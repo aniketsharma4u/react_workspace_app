@@ -99,7 +99,7 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                     </Button>
                 </div>
                 <Table className="text-xs">
-                    <TableHeader className='bg-gray-200'>
+                    <TableHeader className='bg-gray-200 dark:bg-accent'>
                         <TableRow>
                             <TableHead>Unit Type</TableHead>
                             <TableHead>Unit No.</TableHead>
