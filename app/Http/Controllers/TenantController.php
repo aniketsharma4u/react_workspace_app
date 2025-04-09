@@ -15,10 +15,7 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $tenantsData = Tenant::orderByDesc('tenant_id')->paginate(10)->through(function ($tenant) {
-            $tenant->license_expiry = Carbon::parse($tenant->license_expiry)->format('d-M-Y');
-            return $tenant;
-        });
+        $tenantsData = Tenant::orderByDesc('tenant_id')->paginate(10);
         return inertia('tenants/tenant-list', [
             'tenantsData' => $tenantsData,
         ]);
@@ -103,6 +100,7 @@ class TenantController extends Controller
         $getTenantData = Tenant::with('created_user')
             ->where(['unique_tenant_id' => $unique_tenant_id])
             ->first();
+        // dd($getTenantData);    
         return inertia('tenants/tenant-details', [
             'getTenantData' => $getTenantData,
         ]);

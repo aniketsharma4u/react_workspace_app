@@ -1,9 +1,11 @@
 import DetailsList from '@/components/details-list';
 import Heading from '@/components/heading';
 import { Card, CardContent } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import { FileText } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -86,6 +88,61 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                                 <DetailsList heading="Address" value={getTenantData.address} />
                             </dl>
                         </div>
+
+                        <Table className="mt-10 text-xs">
+                            <TableHeader className="dark:bg-accent bg-gray-200">
+                                <TableRow>
+                                    <TableHead>Documents</TableHead>
+                                    <TableHead>Number</TableHead>
+                                    <TableHead>Expiry</TableHead>
+                                    <TableHead>Link</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>Emirates ID</TableCell>
+                                    <TableCell>{getTenantData.tenant_emirates_id_no}</TableCell>
+                                    <TableCell>{getTenantData.tenant_emirates_id_expiry_date}</TableCell>
+                                    <TableCell>
+                                        <a
+                                            className="flex items-center gap-1 hover:underline"
+                                            href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_emirates_id_file}`}
+                                            target="_blank"
+                                        >
+                                            <FileText size={14} /> {getTenantData.tenant_emirates_id_file}
+                                        </a>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Passport</TableCell>
+                                    <TableCell>{getTenantData.tenant_passport_no}</TableCell>
+                                    <TableCell>{getTenantData.tenant_passport_expiry_date}</TableCell>
+                                    <TableCell>
+                                        <a
+                                            className="flex items-center gap-1 hover:underline"
+                                            href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_passport_file}`}
+                                            target="_blank"
+                                        >
+                                            <FileText size={14} /> {getTenantData.tenant_passport_file}
+                                        </a>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Trade License</TableCell>
+                                    <TableCell>{getTenantData.license_no}</TableCell>
+                                    <TableCell>{getTenantData.license_expiry}</TableCell>
+                                    <TableCell>
+                                        <a
+                                            className="flex items-center gap-1 hover:underline"
+                                            href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_trade_license_file}`}
+                                            target="_blank"
+                                        >
+                                            <FileText size={14} /> {getTenantData.tenant_trade_license_file}
+                                        </a>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                     </CardContent>
                 </Card>
             </div>

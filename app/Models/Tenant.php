@@ -44,4 +44,12 @@ class Tenant extends Model
         return $this->hasOne(User::class, 'id', 'created_by');
     }
 
+    protected function casts(): array
+    {
+        return [
+            'license_expiry' => 'date:d-M-Y',
+            'tenant_emirates_id_expiry_date' => 'date:d-M-Y',
+            'tenant_passport_expiry_date' => 'date:d-M-Y',
+        ];
+    }
 }
