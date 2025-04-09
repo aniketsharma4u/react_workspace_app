@@ -68,9 +68,22 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                 <Heading title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
                 <Card>
                     <CardContent>
-                        <div className="flow-root">
-                            <dl className="-my-3 divide-y divide-gray-200 text-sm *:even:bg-gray-50 dark:divide-gray-700 dark:*:even:bg-gray-800">
+                        <div className="grid grid-cols-2">
+                            <dl className="-my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-50 dark:divide-gray-800 dark:*:even:bg-gray-900">
+                                <DetailsList heading="Tenent ID" value={getTenantData.unique_tenant_id} />
                                 <DetailsList heading="Tenant Name" value={getTenantData.tenant_name} />
+                                <DetailsList heading="Company Name" value={getTenantData.tenant_company_name} />
+                                <DetailsList heading="License No." value={getTenantData.license_no} />
+                                <DetailsList heading="License Expiry Date" value={getTenantData.license_expiry} />
+                                <DetailsList heading="License Issuer" value={getTenantData.license_issuer} />
+                            </dl>
+                            <dl className="-my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-50 dark:divide-gray-800 dark:*:even:bg-gray-900">
+                                <DetailsList heading="Email Address" value={getTenantData.email} />
+                                <DetailsList heading="Tel. No" value={getTenantData.tel_no} />
+                                <DetailsList heading="Mobile No." value={getTenantData.mobile_no} />
+                                <DetailsList heading="Fax No." value={getTenantData.fax_no} />
+                                <DetailsList heading="P.O. Box" value={getTenantData.po_box} />
+                                <DetailsList heading="Address" value={getTenantData.address} />
                             </dl>
                         </div>
                     </CardContent>
