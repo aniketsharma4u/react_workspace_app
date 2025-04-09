@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, FolderOpen } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -126,14 +126,18 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                                             <TableCell>{tenant.tel_no}</TableCell>
                                             <TableCell>
                                                 {tenant.status === 1 ? (
-                                                    <Badge className="bg-green-700 text-xs">Active</Badge>
+                                                    <Badge variant="active">Active</Badge>
                                                 ) : (
-                                                    <Badge className="bg-red-700 text-xs">Inactive</Badge>
+                                                    <Badge variant="destructive">Inactive</Badge>
                                                 )}
                                             </TableCell>
                                             <TableCell>
-                                                <Link prefetch href={route('tenant.show', tenant.unique_tenant_id)} className="text-blue-500 hover:underline">
-                                                    View
+                                                <Link
+                                                    prefetch="hover"
+                                                    href={route('tenant.show', tenant.unique_tenant_id)}
+                                                    className="flex items-center gap-1 hover:underline"
+                                                >
+                                                    <FolderOpen size={15} /> View
                                                 </Link>
                                             </TableCell>
                                         </TableRow>

@@ -124,9 +124,9 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                                             <TableCell>{unit.unit_max_amount}</TableCell>
                                             <TableCell>
                                                 {unit.status === 1 ? (
-                                                    <Badge className="bg-green-700 text-xs">Available</Badge>
+                                                    <Badge variant="active">Available</Badge>
                                                 ) : (
-                                                    <Badge className="bg-red-700 text-xs">Booked</Badge>
+                                                    <Badge variant="destructive">Booked</Badge>
                                                 )}
                                             </TableCell>
                                         </TableRow>

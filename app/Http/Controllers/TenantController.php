@@ -103,7 +103,9 @@ class TenantController extends Controller
         $getTenantData = Tenant::with('created_user')
             ->where(['unique_tenant_id' => $unique_tenant_id])
             ->first();
-        dd($getTenantData);
+        return inertia('tenants/tenant-details', [
+            'getTenantData' => $getTenantData,
+        ]);
     }
 
     /**
