@@ -132,7 +132,7 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                                                 )}
                                             </TableCell>
                                             <TableCell>
-                                                <Link href={route('tenant.show', tenant.unique_tenant_id)} className="text-blue-500 hover:underline">
+                                                <Link prefetch href={route('tenant.show', tenant.unique_tenant_id)} className="text-blue-500 hover:underline">
                                                     View
                                                 </Link>
                                             </TableCell>
