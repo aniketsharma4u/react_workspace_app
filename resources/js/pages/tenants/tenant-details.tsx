@@ -1,5 +1,5 @@
 import DetailsList from '@/components/details-list';
-import Heading from '@/components/heading';
+import HeadingSmall from '@/components/heading-small';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
@@ -67,7 +67,16 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="View Tenants" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <Heading title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
+                <div className='mb-3 flex items-center justify-between'>
+                    <HeadingSmall title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
+                    <div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                            Status: {getTenantData.status === 1 ? 'Active' : 'Inactive'}
+                        </span>
+                        
+                    </div>
+                </div>
+
                 <Card>
                     <CardContent>
                         <div className="grid grid-cols-2">
@@ -145,6 +154,10 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                         </Table>
                     </CardContent>
                 </Card>
+                <div className="text-right">
+                    <span className="text-xs">Created by: {getTenantData.created_user.name} | </span>
+                    <span className="text-xs">Created at: {getTenantData.created_at}</span>
+                </div>
             </div>
         </AppLayout>
     );

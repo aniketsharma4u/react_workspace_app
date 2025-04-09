@@ -50,6 +50,7 @@ class Tenant extends Model
             'license_expiry' => 'date:d-M-Y',
             'tenant_emirates_id_expiry_date' => 'date:d-M-Y',
             'tenant_passport_expiry_date' => 'date:d-M-Y',
+            'created_at' => 'date:d-M-Y H:i:s',
         ];
     }
 }
