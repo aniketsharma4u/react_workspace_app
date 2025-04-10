@@ -1,10 +1,11 @@
 import DetailsList from '@/components/details-list';
 import HeadingSmall from '@/components/heading-small';
 import { Card, CardContent } from '@/components/ui/card';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { FileText } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -61,7 +62,32 @@ type TenantType = {
 };
 
 export default function TenantDetails({ getTenantData }: { getTenantData: TenantType }) {
-    console.log(getTenantData);
+    const { data, setData, post } = useForm({
+        tenant_status: getTenantData.status,
+    });
+    const handleTenantStatusChange = (value: string) => {
+        setData('tenant_status', Number(value));
+        const updateTenantStatus = {
+            value: Number(value),
+            tableName: 'tenants',
+            fieldName: 'status',
+            whereCondition: {
+                unique_tenant_id: getTenantData.unique_tenant_id,
+            },
+        };
+        // console.log(updateTenantStatus);
+        post(route('updateStatus', updateTenantStatus), {
+            preserveScroll: true,
+            onSuccess: () => {
+                router.flush(route('tenant.show', { unique_tenant_id: getTenantData.unique_tenant_id }), {
+                    method: 'get',
+                });
+            },
+            onError: (errors) => {
+                console.log(errors);
+            },
+        });
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -70,7 +96,17 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                 <div className="mb-3 flex items-center justify-between">
                     <HeadingSmall title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
                     <div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Status: {getTenantData.status === 1 ? 'Active' : 'Inactive'}</span>
+                        <Select defaultValue={data.tenant_status.toString()} onValueChange={handleTenantStatusChange}>
+                            <SelectTrigger className={data.tenant_status === 1 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}>
+                                <SelectValue placeholder="Select Status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectItem value="1">Active</SelectItem>
+                                    <SelectItem value="0">Inactive</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
 

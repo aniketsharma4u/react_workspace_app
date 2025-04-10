@@ -16,10 +16,10 @@ class CommonController extends Controller
         $updatedData = DB::table($request->tableName)->where($request->whereCondition)->update($updatePayload);
 
         if (!$updatedData) {
-            return response()->json(['status' => 'error', 'message' => 'Failed to update status']);
+            return redirect()->back()->with('error', 'Failed to update status');
         }
         // flash()->success('Status updated successfully');
-        return response()->json(['status' => 'success', 'message' => 'Status updated successfully']);
+        return redirect()->back()->with('success', 'Status updated successfully');
     }
 
     public function checkAdminEmail(Request $request)
