@@ -1,13 +1,8 @@
+import { TablePaginationLink } from '@/types';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination';
 
-interface PaginationLink {
-    url: string;
-    label: string;
-    active: boolean;
-}
-
 interface paginationDataType {
-    links: PaginationLink[];
+    links: TablePaginationLink[];
     next_page_url: string | null;
     prev_page_url: string | null;
 }

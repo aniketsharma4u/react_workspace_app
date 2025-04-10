@@ -1,12 +1,10 @@
-import Heading from '@/components/heading';
 import { TablePagination } from '@/components/table-pagination';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { PaginationLink } from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { TablePaginationLink, TenantType, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { CirclePlus, FolderOpen } from 'lucide-react';
 
@@ -21,48 +19,14 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface Tenant {
-    tenant_id: number;
-    unique_tenant_id: string;
-    license_no: string;
-    license_expiry: string;
-    tenant_name: string;
-    tenant_company_name: string;
-    license_issuer: string;
-    tel_no: string;
-    fax_no: string;
-    email: string;
-    po_box: string;
-    address: string;
-    mobile_no: string;
-    tenant_emirates_id_no: string;
-    tenant_emirates_id_expiry_date: string;
-    tenant_passport_no: string;
-    tenant_passport_expiry_date: string;
-    tenant_emirates_id_file: string;
-    tenant_passport_file: string;
-    tenant_trade_license_file: string;
-    status: number;
-    verify_status: number;
-    created_at: string;
-    updated_at: string;
-    created_by: number;
-}
-
-interface PaginationLink {
-    url: string;
-    label: string;
-    active: boolean;
-}
-
 interface TenantsResponse {
     current_page: number;
-    data: Tenant[];
+    data: TenantType[];
     first_page_url: string;
     from: number;
     last_page: number;
     last_page_url: string;
-    links: PaginationLink[];
+    links: TablePaginationLink[];
     next_page_url: string;
     path: string;
     per_page: number;

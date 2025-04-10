@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\TenancyContractController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -27,6 +28,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/create-tenant', [TenantController::class, 'create'])->name('tenant.create');
         Route::post('/store-Tenant', [TenantController::class, 'store'])->name('tenant.store');
         Route::get('/show-tenant/{unique_tenant_id}', [TenantController::class, 'show'])->name('tenant.show');
+    });
+
+    // Tenancy Contract routes
+    Route::prefix('tenancy-contract')->group(function () {
+        Route::get('/list', [TenancyContractController::class, 'index'])->name('tenancyContract.index');
+        Route::get('/create', [TenancyContractController::class, 'create'])->name('tenancyContract.create');
+        Route::post('/store', [TenancyContractController::class, 'store'])->name('tenancyContract.store');
+        Route::get('/view/{unique_contract_no}', [TenancyContractController::class, 'show'])->name('tenancyContract.show');
     });
 });
 

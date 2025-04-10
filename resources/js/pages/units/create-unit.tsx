@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem } from '@/types';
+import { BreadcrumbItem, UnitType } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
@@ -32,12 +32,6 @@ type AddUnitForm = {
     unit_size_sqm: number | string;
     unit_min_amount: number | string;
     unit_max_amount: number | string;
-};
-
-type UnitType = {
-    unit_type_id: number;
-    unit_name: string;
-    unit_prefix: string;
 };
 
 export default function CreateUnit({ unitTypes }: { unitTypes: UnitType[] }) {

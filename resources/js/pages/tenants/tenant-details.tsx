@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { TenantType, type BreadcrumbItem } from '@/types';
 import { Head, router, useForm } from '@inertiajs/react';
 import { FileText } from 'lucide-react';
 
@@ -22,44 +22,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '',
     },
 ];
-
-type TenantType = {
-    tenant_id: number;
-    unique_tenant_id: string;
-    license_no: string;
-    license_expiry: string; // You can change this to `Date` if you're parsing dates
-    tenant_name: string;
-    tenant_company_name: string;
-    license_issuer: string;
-    tel_no: string;
-    fax_no: string;
-    email: string;
-    po_box: string;
-    address: string;
-    mobile_no: string;
-    tenant_emirates_id_no: string;
-    tenant_emirates_id_expiry_date: string; // Or `Date`
-    tenant_passport_no: string;
-    tenant_passport_expiry_date: string; // Or `Date`
-    tenant_emirates_id_file: string;
-    tenant_passport_file: string;
-    tenant_trade_license_file: string;
-    status: number;
-    verify_status: number;
-    created_at: string; // Or `Date`
-    updated_at: string; // Or `Date`
-    created_by: number;
-    created_user: {
-        id: number;
-        name: string;
-        email: string;
-        email_verified_at: string | null;
-        created_at: string; // Or `Date`
-        updated_at: string; // Or `Date`
-        status: number;
-        created_by: number;
-    };
-};
 
 export default function TenantDetails({ getTenantData }: { getTenantData: TenantType }) {
     const { data, setData, post } = useForm({
@@ -93,22 +55,25 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="View Tenants" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <div className="mb-3 flex items-center justify-between">
+                <div className="mb-3 flex items-center justify-between text-xs">
                     <HeadingSmall title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
                     <div>
-                        <Select defaultValue={data.tenant_status.toString()} onValueChange={handleTenantStatusChange}>
-                            <SelectTrigger
-                                className={`${data.tenant_status === 1 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'} cursor-pointer`}
-                            >
-                                <SelectValue placeholder="Select Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value="1">Active</SelectItem>
-                                    <SelectItem value="0">Inactive</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs">Status:</span>
+                            <Select defaultValue={data.tenant_status.toString()} onValueChange={handleTenantStatusChange}>
+                                <SelectTrigger
+                                    className={`${data.tenant_status === 1 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'} cursor-pointer`}
+                                >
+                                    <SelectValue placeholder="Select Status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectItem value="1">Active</SelectItem>
+                                        <SelectItem value="0">Inactive</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
                 </div>
 
@@ -190,7 +155,7 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                     </CardContent>
                 </Card>
                 <div className="text-right">
-                    <span className="text-xs">Created by: {getTenantData.created_user.name} | </span>
+                    <span className="text-xs">Created by: {getTenantData.created_user?.name} | </span>
                     <span className="text-xs">Created at: {getTenantData.created_at}</span>
                 </div>
             </div>
