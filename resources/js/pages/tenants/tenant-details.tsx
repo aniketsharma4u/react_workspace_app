@@ -67,13 +67,10 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="View Tenants" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <div className='mb-3 flex items-center justify-between'>
+                <div className="mb-3 flex items-center justify-between">
                     <HeadingSmall title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
                     <div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                            Status: {getTenantData.status === 1 ? 'Active' : 'Inactive'}
-                        </span>
-                        
+                        <span className="text-xs text-gray-500 dark:text-gray-400">Status: {getTenantData.status === 1 ? 'Active' : 'Inactive'}</span>
                     </div>
                 </div>
 

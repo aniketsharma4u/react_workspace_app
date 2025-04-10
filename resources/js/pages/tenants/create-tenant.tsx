@@ -1,4 +1,4 @@
-import Heading from '@/components/heading';
+import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -59,7 +59,9 @@ export default function CreateTenant() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Add Tenant" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <Heading title="Add Tenant" description="Add a tenant details." />
+                <div className="mb-3">
+                    <HeadingSmall title="Add Tenant" description="Add a tenant details." />
+                </div>
                 <Card>
                     <CardContent>
                         <form className="grid grid-cols-2 items-start gap-6" onSubmit={handleFormSubmit}>

@@ -83,7 +83,6 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Tenants" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <Heading title="Tenants" description="List of all tenants." />
                 <div className="mb-3 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1">
                         <span>Total Tenants:</span>
