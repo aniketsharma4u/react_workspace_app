@@ -131,6 +131,6 @@ export interface TenancyContract {
     created_by: number;
     created_at: string;
     updated_at: string;
-    tenant: Tenant;
+    tenant: TenantType;
     unit: Unit; // Replace with Unit type if available
 }
