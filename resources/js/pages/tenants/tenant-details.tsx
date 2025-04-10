@@ -97,7 +97,9 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                     <HeadingSmall title={getTenantData.tenant_name} description={getTenantData.tenant_company_name} />
                     <div>
                         <Select defaultValue={data.tenant_status.toString()} onValueChange={handleTenantStatusChange}>
-                            <SelectTrigger className={data.tenant_status === 1 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}>
+                            <SelectTrigger
+                                className={`${data.tenant_status === 1 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'} cursor-pointer`}
+                            >
                                 <SelectValue placeholder="Select Status" />
                             </SelectTrigger>
                             <SelectContent>
@@ -113,7 +115,7 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                 <Card>
                     <CardContent>
                         <div className="grid grid-cols-2">
-                            <dl className="-my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-50 dark:divide-gray-800 dark:*:even:bg-gray-900">
+                            <dl className="dark:divide-accent dark:*:even:bg-accent -my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-100">
                                 <DetailsList heading="Tenent ID" value={getTenantData.unique_tenant_id} />
                                 <DetailsList heading="Tenant Name" value={getTenantData.tenant_name} />
                                 <DetailsList heading="Company Name" value={getTenantData.tenant_company_name} />
@@ -121,7 +123,7 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                                 <DetailsList heading="License Expiry Date" value={getTenantData.license_expiry} />
                                 <DetailsList heading="License Issuer" value={getTenantData.license_issuer} />
                             </dl>
-                            <dl className="-my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-50 dark:divide-gray-800 dark:*:even:bg-gray-900">
+                            <dl className="dark:divide-accent dark:*:even:bg-accent -my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-100">
                                 <DetailsList heading="Email Address" value={getTenantData.email} />
                                 <DetailsList heading="Tel. No" value={getTenantData.tel_no} />
                                 <DetailsList heading="Mobile No." value={getTenantData.mobile_no} />
