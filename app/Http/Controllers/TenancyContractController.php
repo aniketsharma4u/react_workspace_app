@@ -14,7 +14,6 @@ class TenancyContractController extends Controller
      */
     public function index()
     {
-
         $tenancyContractData = TenancyContract::with(['tenant', 'unit.unitType'])
             ->orderByDesc('contract_id')
             ->paginate(10);

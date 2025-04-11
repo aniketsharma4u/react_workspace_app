@@ -45,7 +45,7 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
         unit_max_amount: '',
     });
 
-    const [unitNumbers, setUnitNumbers] = useState<Unit[]>([]); // State to store fetched unit numbers
+    const [unitNumbers, setUnitNumbers] = useState<Unit[]>([]);
 
     const getUnitsNumbers = async (unitTypeId: string) => {
         try {
