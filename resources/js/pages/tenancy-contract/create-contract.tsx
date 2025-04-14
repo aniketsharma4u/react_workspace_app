@@ -29,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 type AddUnitForm = {
     unit_type: number;
     unit_no: string;
-    floor_no: number;
+    floor_no: string;
     unit_size_sqm: number | string;
     unit_min_amount: number | string;
     unit_max_amount: number | string;
@@ -52,12 +52,30 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
             const response = await axios.get(route('getUnitsByType'), {
                 params: { unitTypeId },
             });
-            console.log(response.data);
-            setUnitNumbers(response.data);
+            setData('floor_no', '');
+            setData('unit_size_sqm', '');
+            setData('unit_min_amount', '');
+            setData('unit_max_amount', '');
+            if (response.data.length > 0) {
+                setUnitNumbers(response.data);
+            } else {
+                setUnitNumbers([]);
+            }
         } catch (error) {
             console.error('Error fetching unit numbers:', error);
         }
     };
+
+    const fillUnitdetails = (value: string) => {
+        const selectedUnit = unitNumbers.find((unit) => unit.unique_unit_id === value);
+        if (selectedUnit) {
+            setData('floor_no', selectedUnit.floor_no);
+            setData('unit_size_sqm', selectedUnit.unit_size_sqm);
+            setData('unit_min_amount', selectedUnit.unit_min_amount);
+            setData('unit_max_amount', selectedUnit.unit_max_amount);
+        }
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create Contract" />
@@ -94,7 +112,12 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
 
                             <div className="grid gap-2">
                                 <Label htmlFor="unit_no">Unit No. *</Label>
-                                <Select onValueChange={(value) => setData('unit_no', value)}>
+                                <Select
+                                    onValueChange={(value) => {
+                                        setData('unit_no', value);
+                                        fillUnitdetails(value);
+                                    }}
+                                >
                                     <SelectTrigger className="mt-1 w-full">
                                         <SelectValue placeholder="Select Unit No." />
                                     </SelectTrigger>
@@ -112,19 +135,54 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="unit_max_amount">Maximum Amount. *</Label>
+                                <Label htmlFor="floor_no">Floor No. *</Label>
+                                <Input
+                                    id="floor_no"
+                                    type="text"
+                                    className="bg-accent mt-1 block w-full"
+                                    value={data.floor_no}
+                                    readOnly
+                                    placeholder="4"
+                                />
+                                <InputError message={errors.floor_no} />
+                            </div>
 
+                            <div className="grid gap-2">
+                                <Label htmlFor="unit_size_sqm">Unit Size(Sq.m) *</Label>
+                                <Input
+                                    id="unit_size_sqm"
+                                    type="text"
+                                    className="bg-accent mt-1 block w-full"
+                                    value={data.unit_size_sqm}
+                                    readOnly
+                                    placeholder="200.1"
+                                />
+                                <InputError message={errors.unit_size_sqm} />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="unit_min_amount">Minimum Amount. *</Label>
+                                <Input
+                                    id="unit_min_amount"
+                                    type="text"
+                                    className="bg-accent mt-1 block w-full"
+                                    value={data.unit_min_amount}
+                                    readOnly
+                                    placeholder="5000.00"
+                                />
+                                <InputError message={errors.unit_min_amount} />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="unit_max_amount">Maximum Amount. *</Label>
                                 <Input
                                     id="unit_max_amount"
-                                    type="number"
-                                    className="mt-1 block w-full"
+                                    type="text"
+                                    className="bg-accent mt-1 block w-full"
                                     value={data.unit_max_amount}
-                                    onChange={(e) => setData('unit_max_amount', Number(e.target.value))}
-                                    required
-                                    autoComplete="unit_max_amount"
-                                    placeholder="222.1"
+                                    readOnly
+                                    placeholder="8000.00"
                                 />
-
                                 <InputError message={errors.unit_max_amount} />
                             </div>
 
