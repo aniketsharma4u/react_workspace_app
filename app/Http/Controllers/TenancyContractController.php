@@ -28,7 +28,7 @@ class TenancyContractController extends Controller
     public function create()
     {
         $unitTypes = UnitType::where('status', 1)->get();
-        $tenantsData = Tenant::where(['status' => 1, 'verify_status' => 1])->get();
+        $tenantsData = Tenant::where(['status' => 1])->get();
         return inertia('tenancy-contract/create-contract', [
             'tenantsData' => $tenantsData,
             'unitTypes' => $unitTypes,
