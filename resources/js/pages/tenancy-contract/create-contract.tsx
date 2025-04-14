@@ -13,7 +13,7 @@ import { BreadcrumbItem, TenantType, Unit, UnitType } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import axios from 'axios';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -32,12 +32,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 type AddUnitForm = {
     unit_type: number;
+    start_date: string;
+    end_date: string;
     unit_no: string;
+    annual_amount: string;
+    contract_amount: string;
     floor_no: number | string;
     unit_size_sqm: number | string;
     unit_min_amount: number | string;
     unit_max_amount: number | string;
     unique_tenant_id: number | string;
+    total_months: number;
 };
 
 export default function CreateContract({ tenantsData, unitTypes }: { tenantsData: TenantType[]; unitTypes: UnitType[] }) {
@@ -53,6 +58,11 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
         unit_min_amount: '',
         unit_max_amount: '',
         unique_tenant_id: '',
+        total_months: 0,
+        start_date: '',
+        end_date: '',
+        annual_amount: '',
+        contract_amount: '',
     });
 
     // console.log('data=', data);
@@ -87,6 +97,19 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
             setData('unit_max_amount', selectedUnit.unit_max_amount);
         }
     };
+
+    useEffect(() => {
+        let startDate = data.start_date;
+        let totalMonths = data.total_months;
+        if (startDate && totalMonths) {
+            const start = new Date(startDate);
+            const end = new Date(start.setMonth(start.getMonth() + totalMonths));
+            const endDate = end.toISOString().split('T')[0];
+            setData('end_date', endDate);
+        }
+    }, [data.start_date, data.total_months]);
+
+
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -247,11 +270,81 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
                                             </Command>
                                         </PopoverContent>
                                     </Popover>
-                                    <InputError message={errors.unit_type} />
+                                    <InputError message={errors.unique_tenant_id} />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="total_months">Select Months *</Label>
+                                    <Select
+                                        onValueChange={(value) => {
+                                            setData('total_months', Number(value));
+                                        }}
+                                    >
+                                        <SelectTrigger className="mt-1 w-full">
+                                            <SelectValue placeholder="Select Months" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                {Array.from({ length: 12 }, (_, index) => (
+                                                    <SelectItem key={index + 1} value={(index + 1).toString()}>
+                                                        {index + 1} Month{index + 1 > 1 ? 's' : ''}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                    <InputError message={errors.total_months} />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="start_date">Start Date *</Label>
+                                    <Input
+                                        id="start_date"
+                                        type="date"
+                                        className="mt-1 block w-full"
+                                        value={data.start_date}
+                                        onChange={(e) => {
+                                            setData('start_date', e.target.value);
+                                        }}
+                                        required
+                                    />
+                                    <InputError message={errors.start_date} />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="end_date">End Date *</Label>
+                                    <Input id="end_date" type="date" className="mt-1 block w-full" value={data.end_date} readOnly />
+                                    <InputError message={errors.end_date} />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="annual_amount">Annual Amount *</Label>
+                                    <Input
+                                        id="annual_amount"
+                                        type="text"
+                                        className="mt-1 block w-full"
+                                        value={data.annual_amount}
+                                        readOnly
+                                        placeholder="5000.00"
+                                    />
+                                    <InputError message={errors.annual_amount} />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="contract_amount">Contract Amount *</Label>
+                                    <Input
+                                        id="contract_amount"
+                                        type="text"
+                                        className="bg-accent mt-1 block w-full"
+                                        value={data.contract_amount}
+                                        readOnly
+                                        placeholder="8000.00"
+                                    />
+                                    <InputError message={errors.contract_amount} />
                                 </div>
                             </div>
-                            <div className="mt-5 flex items-center gap-4">
-                                <Button disabled={processing}>Submit</Button>
+                            <div className="mt-8 flex items-center gap-4">
+                                <Button className="w-1/4 p-6" disabled={processing}>
+                                    Submit
+                                </Button>
                             </div>
                         </form>
                     </CardContent>
