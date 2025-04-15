@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import AppLayout from '@/layouts/app-layout';
 import { TablePaginationLink, TenancyContract, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, FolderOpen } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -74,6 +74,7 @@ export default function ContractList({ tenancyContractData }: { tenancyContractD
                                     <TableHead>Unit</TableHead>
                                     <TableHead>Created Time</TableHead>
                                     <TableHead>Status</TableHead>
+                                    <TableHead>Action</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -94,10 +95,19 @@ export default function ContractList({ tenancyContractData }: { tenancyContractD
                                             <TableCell>{tenancyContract.created_at}</TableCell>
                                             <TableCell>
                                                 {tenancyContract.contract_status === 1 ? (
-                                                    <Badge variant="active">Available</Badge>
+                                                    <Badge variant="active">Active</Badge>
                                                 ) : (
-                                                    <Badge variant="destructive">Booked</Badge>
+                                                    <Badge variant="destructive">Inactive</Badge>
                                                 )}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link
+                                                    prefetch="hover"
+                                                    href={route('tenancyContract.show', tenancyContract.unique_contract_no)}
+                                                    className="flex items-center gap-1 transition duration-300 ease-in-out hover:scale-120 hover:underline"
+                                                >
+                                                    <FolderOpen size={15} /> View
+                                                </Link>
                                             </TableCell>
                                         </TableRow>
                                     ))

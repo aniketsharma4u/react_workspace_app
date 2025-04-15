@@ -64,4 +64,13 @@ class TenancyContract extends Model
     {
         return $this->hasOne(User::class, 'id', 'created_by');
     }
+
+    public function casts(): array
+    {
+        return [
+            'start_date' => 'date:d-M-Y',
+            'end_date' => 'date:d-M-Y',
+            'created_at' => 'date:d-M-Y H:i:s',
+        ];
+    }
 }

@@ -56,7 +56,7 @@ class TenancyContractRequest extends FormRequest
                     }
                 }
             ],
-            'contract_amount' => ['required', 'numeric', 'min:0'],
+            'contract_amount' => ['required', 'numeric', 'min:1'],
         ];
     }
 }

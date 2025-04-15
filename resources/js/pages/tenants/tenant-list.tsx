@@ -78,9 +78,9 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                                     tenantsData.data.map((tenant, index) => (
                                         <TableRow key={index}>
                                             <TableCell>
-                                                <span className="font-bold">{tenant.tenant_company_name}</span>
+                                                <span className="font-bold">{tenant.tenant_name}</span>
                                                 <br />
-                                                <span>{tenant.tenant_name}</span>
+                                                <span>{tenant.tenant_company_name}</span>
                                             </TableCell>
                                             <TableCell>{tenant.unique_tenant_id}</TableCell>
                                             <TableCell>{tenant.license_no}</TableCell>
