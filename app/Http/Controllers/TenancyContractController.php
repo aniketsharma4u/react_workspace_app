@@ -17,7 +17,7 @@ class TenancyContractController extends Controller
         $tenancyContractData = TenancyContract::with(['tenant', 'unit.unitType'])
             ->orderByDesc('contract_id')
             ->paginate(10);
-        // dd($tenancyContractData);    
+
         return inertia('tenancy-contract/contract-list', [
             'tenancyContractData' => $tenancyContractData,
         ]);
@@ -63,14 +63,13 @@ class TenancyContractController extends Controller
      */
     public function show($unique_contract_no)
     {
-        $tenancyContractData = TenancyContract::with(['tenant', 'unit.unitType', 'created_by_user'])
+        $tenancyContractData = TenancyContract::with(['tenant.created_user', 'unit.unitType', 'created_by_user'])
             ->where('unique_contract_no', $unique_contract_no)
             ->first();
-        dd($tenancyContractData);
+        // dd($tenancyContractData);
         if (!$tenancyContractData) {
             return redirect()->route('tenancyContract.index')->with('error', 'Tenancy Contract Not Found');
         }
-
         return inertia('tenancy-contract/view-contract', [
             'tenancyContractData' => $tenancyContractData,
         ]);

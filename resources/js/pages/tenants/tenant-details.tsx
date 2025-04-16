@@ -23,6 +23,97 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+// TenantCard Component
+export function TenantCard({ getTenantData }: { getTenantData: TenantType }) {
+    return (
+        <>
+            <Card>
+                <CardContent>
+                    <div className="grid grid-cols-2">
+                        <dl className="dark:divide-accent dark:*:even:bg-accent -my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-100">
+                            <DetailsList heading="Tenent ID" value={getTenantData.unique_tenant_id} />
+                            <DetailsList heading="Tenant Name" value={getTenantData.tenant_name} />
+                            <DetailsList heading="Company Name" value={getTenantData.tenant_company_name} />
+                            <DetailsList heading="License No." value={getTenantData.license_no} />
+                            <DetailsList heading="License Expiry Date" value={getTenantData.license_expiry} />
+                            <DetailsList heading="License Issuer" value={getTenantData.license_issuer} />
+                            <DetailsList heading="Created By" value={`${getTenantData.created_user?.name} | ${getTenantData.created_at}`} />
+                        </dl>
+                        <dl className="dark:divide-accent dark:*:even:bg-accent -my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-100">
+                            <DetailsList heading="Email Address" value={getTenantData.email} />
+                            <DetailsList heading="Tel. No" value={getTenantData.tel_no} />
+                            <DetailsList heading="Mobile No." value={getTenantData.mobile_no} />
+                            <DetailsList heading="Fax No." value={getTenantData.fax_no} />
+                            <DetailsList heading="P.O. Box" value={getTenantData.po_box} />
+                            <DetailsList heading="Address" value={getTenantData.address} />
+                            <DetailsList heading="Status" value={getTenantData.status === 1 ? 'Active' : 'Inactive'} />
+                        </dl>
+                    </div>
+
+                    <Table className="mt-10 text-xs">
+                        <TableHeader className="dark:bg-accent bg-gray-200">
+                            <TableRow>
+                                <TableHead>Documents</TableHead>
+                                <TableHead>Number</TableHead>
+                                <TableHead>Expiry</TableHead>
+                                <TableHead>Link</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>Emirates ID</TableCell>
+                                <TableCell>{getTenantData.tenant_emirates_id_no}</TableCell>
+                                <TableCell>{getTenantData.tenant_emirates_id_expiry_date}</TableCell>
+                                <TableCell>
+                                    <a
+                                        className="flex items-center gap-1 hover:underline"
+                                        href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_emirates_id_file}`}
+                                        target="_blank"
+                                    >
+                                        <FileText size={14} /> {getTenantData.tenant_emirates_id_file}
+                                    </a>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Passport</TableCell>
+                                <TableCell>{getTenantData.tenant_passport_no}</TableCell>
+                                <TableCell>{getTenantData.tenant_passport_expiry_date}</TableCell>
+                                <TableCell>
+                                    <a
+                                        className="flex items-center gap-1 hover:underline"
+                                        href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_passport_file}`}
+                                        target="_blank"
+                                    >
+                                        <FileText size={14} /> {getTenantData.tenant_passport_file}
+                                    </a>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Trade License</TableCell>
+                                <TableCell>{getTenantData.license_no}</TableCell>
+                                <TableCell>{getTenantData.license_expiry}</TableCell>
+                                <TableCell>
+                                    <a
+                                        className="flex items-center gap-1 hover:underline"
+                                        href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_trade_license_file}`}
+                                        target="_blank"
+                                    >
+                                        <FileText size={14} /> {getTenantData.tenant_trade_license_file}
+                                    </a>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+            {/* <div className="text-right">
+                <span className="text-xs">Created by: {getTenantData.created_user?.name} | </span>
+                <span className="text-xs">Created at: {getTenantData.created_at}</span>
+            </div> */}
+        </>
+    );
+}
+
 export default function TenantDetails({ getTenantData }: { getTenantData: TenantType }) {
     const { data, setData, post } = useForm({
         tenant_status: getTenantData.status,
@@ -77,87 +168,7 @@ export default function TenantDetails({ getTenantData }: { getTenantData: Tenant
                     </div>
                 </div>
 
-                <Card>
-                    <CardContent>
-                        <div className="grid grid-cols-2">
-                            <dl className="dark:divide-accent dark:*:even:bg-accent -my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-100">
-                                <DetailsList heading="Tenent ID" value={getTenantData.unique_tenant_id} />
-                                <DetailsList heading="Tenant Name" value={getTenantData.tenant_name} />
-                                <DetailsList heading="Company Name" value={getTenantData.tenant_company_name} />
-                                <DetailsList heading="License No." value={getTenantData.license_no} />
-                                <DetailsList heading="License Expiry Date" value={getTenantData.license_expiry} />
-                                <DetailsList heading="License Issuer" value={getTenantData.license_issuer} />
-                            </dl>
-                            <dl className="dark:divide-accent dark:*:even:bg-accent -my-3 divide-y divide-gray-200 text-xs *:even:bg-gray-100">
-                                <DetailsList heading="Email Address" value={getTenantData.email} />
-                                <DetailsList heading="Tel. No" value={getTenantData.tel_no} />
-                                <DetailsList heading="Mobile No." value={getTenantData.mobile_no} />
-                                <DetailsList heading="Fax No." value={getTenantData.fax_no} />
-                                <DetailsList heading="P.O. Box" value={getTenantData.po_box} />
-                                <DetailsList heading="Address" value={getTenantData.address} />
-                            </dl>
-                        </div>
-
-                        <Table className="mt-10 text-xs">
-                            <TableHeader className="dark:bg-accent bg-gray-200">
-                                <TableRow>
-                                    <TableHead>Documents</TableHead>
-                                    <TableHead>Number</TableHead>
-                                    <TableHead>Expiry</TableHead>
-                                    <TableHead>Link</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>Emirates ID</TableCell>
-                                    <TableCell>{getTenantData.tenant_emirates_id_no}</TableCell>
-                                    <TableCell>{getTenantData.tenant_emirates_id_expiry_date}</TableCell>
-                                    <TableCell>
-                                        <a
-                                            className="flex items-center gap-1 hover:underline"
-                                            href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_emirates_id_file}`}
-                                            target="_blank"
-                                        >
-                                            <FileText size={14} /> {getTenantData.tenant_emirates_id_file}
-                                        </a>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Passport</TableCell>
-                                    <TableCell>{getTenantData.tenant_passport_no}</TableCell>
-                                    <TableCell>{getTenantData.tenant_passport_expiry_date}</TableCell>
-                                    <TableCell>
-                                        <a
-                                            className="flex items-center gap-1 hover:underline"
-                                            href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_passport_file}`}
-                                            target="_blank"
-                                        >
-                                            <FileText size={14} /> {getTenantData.tenant_passport_file}
-                                        </a>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Trade License</TableCell>
-                                    <TableCell>{getTenantData.license_no}</TableCell>
-                                    <TableCell>{getTenantData.license_expiry}</TableCell>
-                                    <TableCell>
-                                        <a
-                                            className="flex items-center gap-1 hover:underline"
-                                            href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_trade_license_file}`}
-                                            target="_blank"
-                                        >
-                                            <FileText size={14} /> {getTenantData.tenant_trade_license_file}
-                                        </a>
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                </Card>
-                <div className="text-right">
-                    <span className="text-xs">Created by: {getTenantData.created_user?.name} | </span>
-                    <span className="text-xs">Created at: {getTenantData.created_at}</span>
-                </div>
+                <TenantCard getTenantData={getTenantData} />
             </div>
         </AppLayout>
     );

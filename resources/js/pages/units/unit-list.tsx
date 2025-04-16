@@ -1,9 +1,8 @@
-import Heading from '@/components/heading';
+import HeadingSmall from '@/components/heading-small';
 import { TablePagination } from '@/components/table-pagination';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { PaginationLink } from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { TablePaginationLink, Unit, type BreadcrumbItem } from '@/types';
@@ -20,7 +19,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('units.index'),
     },
 ];
-
 
 interface PaginatedUnitsResponse {
     current_page: number;
@@ -49,7 +47,9 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Units" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <Heading title="Units" description="List of all units." />
+                <div className="mb-3">
+                    <HeadingSmall title="Unit List" description="List of all units." />
+                </div>
                 <div className="mb-3 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1">
                         <span>Total Units:</span>

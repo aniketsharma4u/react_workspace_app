@@ -90,6 +90,7 @@ export default function ContractList({ tenancyContractData }: { tenancyContractD
                                             <TableCell>{tenancyContract.end_date}</TableCell>
                                             <TableCell>
                                                 <span>{tenancyContract.unit.unit_type.unit_name}</span>
+                                                <br />
                                                 <span>{tenancyContract.unit.unit_no}</span>
                                             </TableCell>
                                             <TableCell>{tenancyContract.created_at}</TableCell>
@@ -104,7 +105,7 @@ export default function ContractList({ tenancyContractData }: { tenancyContractD
                                                 <Link
                                                     prefetch="hover"
                                                     href={route('tenancyContract.show', tenancyContract.unique_contract_no)}
-                                                    className="flex items-center gap-1 transition duration-300 ease-in-out hover:scale-120 hover:underline"
+                                                    className="flex items-center gap-1 transition duration-100 ease-in-out hover:scale-110 hover:underline"
                                                 >
                                                     <FolderOpen size={15} /> View
                                                 </Link>

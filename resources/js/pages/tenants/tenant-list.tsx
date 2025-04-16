@@ -1,3 +1,4 @@
+import HeadingSmall from '@/components/heading-small';
 import { TablePagination } from '@/components/table-pagination';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -47,6 +48,9 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Tenants" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
+                <div className="mb-3">
+                    <HeadingSmall title="Tenants List" description="List of all tenants." />
+                </div>
                 <div className="mb-3 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1">
                         <span>Total Tenants:</span>
@@ -98,7 +102,7 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                                                 <Link
                                                     prefetch="hover"
                                                     href={route('tenant.show', tenant.unique_tenant_id)}
-                                                    className="flex items-center gap-1 hover:underline"
+                                                    className="flex items-center gap-1 transition duration-100 hover:scale-110  hover:underline"
                                                 >
                                                     <FolderOpen size={15} /> View
                                                 </Link>
