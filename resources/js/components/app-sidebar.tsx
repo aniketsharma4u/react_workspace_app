@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Gauge, LayoutDashboard, LibraryBig, UsersRound } from 'lucide-react';
+import { Fingerprint, Gauge, LayoutDashboard, LibraryBig, UserCog, UserRound, UsersRound, Wifi } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -26,6 +26,26 @@ const mainNavItems: NavItem[] = [
         title: 'Tenancy Contracts',
         href: route('tenancyContract.index'),
         icon: LibraryBig,
+    },
+    {
+        title: 'Amenities',
+        href: '',
+        icon: Wifi,
+    },
+    {
+        title: 'MI Business Hub',
+        href: '',
+        icon: UserRound,
+    },
+    {
+        title: 'COSEC',
+        href: '',
+        icon: Fingerprint,
+    },
+    {
+        title: 'Admins',
+        href: '',
+        icon: UserCog,
     },
 ];
 
