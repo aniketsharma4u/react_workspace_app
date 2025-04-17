@@ -8,12 +8,10 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
     return (
         <SidebarGroup className="px-2 py-0">
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
                 {items.map((item) => {
                     const hrefPath = new URL(item.href, window.location.origin).pathname.split('/').slice(1);
                     const pageUrl = page.url.split('/').slice(1);
-                    // console.log('hrefPath', hrefPath[0]);
-                    // console.log('pageUrl', pageUrl[0]);
                     return (
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton asChild isActive={hrefPath[0] === pageUrl[0]} tooltip={{ children: item.title }}>
