@@ -1,4 +1,4 @@
-# React Workspace App
+# MI Hub WorkSpace
 
 A **robust coworking platform** built with Laravel (PHP) and Inertia.js, featuring a React frontend and powered by a MySQL database. This platform is designed to streamline management operations, offering flexibility and scalability for coworking spaces.
 
@@ -20,7 +20,7 @@ A **robust coworking platform** built with Laravel (PHP) and Inertia.js, featuri
 ## 🚀 Tech Stack
 
 ### Backend:
-- **Laravel**: A PHP framework for rapid development.
+- **Laravel 12**: A PHP framework for rapid development.
 - **Inertia.js**: Bridges the gap between Laravel and React.
 
 ### Frontend:
@@ -43,11 +43,6 @@ Here are some key features of the app in action:
 
 ### Tenant Management
 ![Tenant Management](images/tenant-management.png)
-
-### Payment Tracker
-![Payment Tracker](images/payment-tracker.png)
-
-*(Make sure to replace `images/<filename>.png` with actual file paths to your images.)*
 
 ---
 
