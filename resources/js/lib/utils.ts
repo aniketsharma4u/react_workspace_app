@@ -7,6 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 export function publicPath(): string {
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
     const basePath = pathSegments.length > 0 ? `/${pathSegments[0]}` : '';
-    const baseURL = `${window.location.origin}${basePath}`;
+    const baseURL = `${window.location.origin}${basePath}/public`;
     return baseURL;
 }
