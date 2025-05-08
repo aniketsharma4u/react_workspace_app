@@ -5,5 +5,5 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 export function publicPath(path: string): string {
-    return `${window.location.origin}/${path.replace(/^\/+/, '')}`;
+    return `${window.location.origin}/public/${path.replace(/^\/+/, '')}`;
 }
