@@ -24,7 +24,7 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: 'public/build',
+        outDir: 'react_workspace_app/public/build',
         emptyOutDir: true,
         manifest: true,
     },
