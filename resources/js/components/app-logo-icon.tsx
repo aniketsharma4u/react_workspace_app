@@ -3,5 +3,6 @@ interface AppLogoIconProps {
 }
 
 export default function AppLogoIcon({ className = 'w-[170px]' }: AppLogoIconProps) {
-    return <img src="/assets/img/logo.png" className={className} alt="App Logo" />;
+    const basePath = process.env.APP_URL || '';
+    return <img src={`${basePath}/assets/img/logo.png`} className={className} alt="App Logo" />;
 }
