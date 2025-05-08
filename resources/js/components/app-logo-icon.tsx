@@ -5,6 +5,7 @@ interface AppLogoIconProps {
 }
 
 export default function AppLogoIcon({ className = 'w-[170px]' }: AppLogoIconProps) {
-    const basePath = import.meta.env.VITE_ASSET_URL || publicPath; // Use REACT_APP_ prefix
+    const basePath = import.meta.env.VITE_ASSET_URL || publicPath(); // Use REACT_APP_ prefix
+    // console.log('basePath', publicPath());
     return <img src={`${basePath}/assets/img/logo.png`} className={className} alt="App Logo" />;
 }
