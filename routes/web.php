@@ -16,9 +16,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Unit routes
-    Route::get('units/units-list', [UnitController::class, 'index'])->name('units.index');
-    Route::get('units/create-unit', [UnitController::class, 'create'])->name('unit.create');
-    Route::post('units/store-unit', [UnitController::class, 'store'])->name('unit.store');
+    Route::group(['prefix' => 'units'], function () {
+        Route::get('/units-list', [UnitController::class, 'index'])->name('units.index');
+        Route::get('/create-unit', [UnitController::class, 'create'])->name('unit.create');
+        Route::post('/store-unit', [UnitController::class, 'store'])->name('unit.store');
+    });
 
     // Tenant routes
     Route::prefix('tenants')->group(function () {
