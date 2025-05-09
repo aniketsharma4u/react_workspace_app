@@ -32,7 +32,7 @@
     </style>
 
     <title inertia>{{ config('app.name', 'More Ideas Business Hub') }}</title>
-
+    <link rel="icon" href="{{ asset('assets/img/favicon.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
