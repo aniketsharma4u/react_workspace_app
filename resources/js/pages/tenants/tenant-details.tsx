@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
+import { publicPath } from '@/lib/utils';
 import { TenantType, type BreadcrumbItem } from '@/types';
 import { Head, router, useForm } from '@inertiajs/react';
 import { FileText } from 'lucide-react';
@@ -25,6 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 // TenantCard Component
 export function TenantCard({ getTenantData }: { getTenantData: TenantType }) {
+    const basePath = import.meta.env.VITE_ASSET_URL || publicPath();
     return (
         <>
             <Card>
@@ -67,7 +69,7 @@ export function TenantCard({ getTenantData }: { getTenantData: TenantType }) {
                                 <TableCell>
                                     <a
                                         className="flex items-center gap-1 hover:underline"
-                                        href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_emirates_id_file}`}
+                                        href={`${basePath}/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_emirates_id_file}`}
                                         target="_blank"
                                     >
                                         <FileText size={14} /> {getTenantData.tenant_emirates_id_file}
