@@ -83,7 +83,7 @@ export function TenantCard({ getTenantData }: { getTenantData: TenantType }) {
                                 <TableCell>
                                     <a
                                         className="flex items-center gap-1 hover:underline"
-                                        href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_passport_file}`}
+                                        href={`${basePath}/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_passport_file}`}
                                         target="_blank"
                                     >
                                         <FileText size={14} /> {getTenantData.tenant_passport_file}
@@ -97,7 +97,7 @@ export function TenantCard({ getTenantData }: { getTenantData: TenantType }) {
                                 <TableCell>
                                     <a
                                         className="flex items-center gap-1 hover:underline"
-                                        href={`/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_trade_license_file}`}
+                                        href={`${basePath}/storage/uploads/${getTenantData.unique_tenant_id}/${getTenantData.tenant_trade_license_file}`}
                                         target="_blank"
                                     >
                                         <FileText size={14} /> {getTenantData.tenant_trade_license_file}
