@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, UnitType } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
@@ -79,12 +79,13 @@ export default function CreateUnit({ unitTypes }: { unitTypes: UnitType[] }) {
                         <form className="grid grid-cols-2 items-start gap-6" onSubmit={handleSubmit}>
                             <div className="grid gap-2">
                                 <Label htmlFor="unit_type">Unit Type *</Label>
-                                <Select onValueChange={handleUnitTypeChange} required defaultValue={data.unit_type.toString()}>
+                                <Select onValueChange={handleUnitTypeChange} required>
                                     <SelectTrigger className="mt-1 w-full">
                                         <SelectValue placeholder="Select Unit Type" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
+                                            <SelectLabel>Unit Type</SelectLabel>
                                             {unitTypes.map((unitType, index) => (
                                                 <SelectItem key={index} value={unitType.unit_type_id.toString()}>
                                                     {unitType.unit_name}

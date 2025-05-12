@@ -351,7 +351,7 @@ export default function CreateContract({ tenantsData, unitTypes }: { tenantsData
                                     <Input
                                         id="contract_amount"
                                         type="text"
-                                        className="bg-accent mt-1 block w-full"
+                                        className=" mt-1 block w-full"
                                         value={data.contract_amount}
                                         readOnly
                                         placeholder="8000.00"
