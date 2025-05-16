@@ -22,7 +22,7 @@ export default function AuthSplitLayout({ children, title, description }: PropsW
                     <div className="relative z-20 mt-auto">
                         <blockquote className="space-y-2">
                             <p className="text-lg">&ldquo;{quote.message}&rdquo;</p>
-                            <footer className="text-sm text-neutral-300">{quote.author}</footer>
+                            <footer className="text-xs text-neutral-300">{quote.author}</footer>
                         </blockquote>
                     </div>
                 )}
@@ -34,7 +34,7 @@ export default function AuthSplitLayout({ children, title, description }: PropsW
                     </Link>
                     <div className="flex flex-col items-start gap-2 text-left sm:items-center sm:text-center">
                         <h1 className="text-xl font-medium">{title}</h1>
-                        <p className="text-muted-foreground text-sm text-balance">{description}</p>
+                        <p className="text-muted-foreground text-xs text-balance">{description}</p>
                     </div>
                     {children}
                 </div>

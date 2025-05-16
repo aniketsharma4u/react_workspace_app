@@ -96,7 +96,7 @@ export default function UnitList({ unitsData }: { unitsData: PaginatedUnitsRespo
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={7} className="text-center text-sm">
+                                        <TableCell colSpan={7} className="text-center text-xs">
                                             No units found.
                                         </TableCell>
                                     </TableRow>

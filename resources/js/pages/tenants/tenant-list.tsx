@@ -111,7 +111,7 @@ export default function TenantList({ tenantsData }: { tenantsData: TenantsRespon
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={8} className="text-center text-sm">
+                                        <TableCell colSpan={8} className="text-center text-xs">
                                             No tenants found.
                                         </TableCell>
                                     </TableRow>

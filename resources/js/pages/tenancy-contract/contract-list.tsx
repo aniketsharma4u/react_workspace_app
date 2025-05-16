@@ -114,7 +114,7 @@ export default function ContractList({ tenancyContractData }: { tenancyContractD
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={7} className="text-center text-sm">
+                                        <TableCell colSpan={7} className="text-center text-xs">
                                             No units found.
                                         </TableCell>
                                     </TableRow>

@@ -1,13 +1,13 @@
 import { TenancyContract, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/app-layout';
 import { TenantCard } from '@/pages/tenants/tenant-details';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -30,33 +30,22 @@ export default function ViewContract({ tenancyContractData }: { tenancyContractD
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="View Tenants" />
             <div className="flex h-full flex-1 flex-col rounded-xl p-4">
-                <Tabs defaultValue="account" className="w-[400px]">
-                    <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="account">Account</TabsTrigger>
-                        <TabsTrigger value="password">Password</TabsTrigger>
+                <Tabs defaultValue="tenant">
+                    <TabsList className="flex items-center gap-3">
+                        <TabsTrigger className="data-[state=active]:bg-sidebar-accent px-6 py-4 text-xs" value="tenant">
+                            Contract Details
+                        </TabsTrigger>
+                        <TabsTrigger className="data-[state=active]:bg-sidebar-accent px-6 py-4 text-xs" value="payments">
+                            Payment Details
+                        </TabsTrigger>
+                        <TabsTrigger className="data-[state=active]:bg-sidebar-accent px-6 py-4 text-xs" value="generate_pdf">
+                            Generate Contact PDF
+                        </TabsTrigger>
                     </TabsList>
-                    <TabsContent value="account">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Account</CardTitle>
-                                <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-2">
-                                <div className="space-y-1">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input id="name" defaultValue="Pedro Duarte" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="username">Username</Label>
-                                    <Input id="username" defaultValue="@peduarte" />
-                                </div>
-                            </CardContent>
-                            <CardFooter>
-                                <Button>Save changes</Button>
-                            </CardFooter>
-                        </Card>
+                    <TabsContent value="tenant">
+                        <TenantCard getTenantData={tenancyContractData.tenant} />
                     </TabsContent>
-                    <TabsContent value="password">
+                    <TabsContent value="payments">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Password</CardTitle>
@@ -78,7 +67,6 @@ export default function ViewContract({ tenancyContractData }: { tenancyContractD
                         </Card>
                     </TabsContent>
                 </Tabs>
-                <TenantCard getTenantData={tenancyContractData.tenant} />
             </div>
         </AppLayout>
     );
