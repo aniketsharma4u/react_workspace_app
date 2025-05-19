@@ -18,10 +18,7 @@ jobs:
         run: npm install
 
       - name: Clean build directory
-        run: |
-          rm -rf build/
-          rm -rf dist/
-          rm -rf public/build/
+        run: rm -rf build
 
       - name: Run Build
         run: npm run build
