@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -13,12 +13,15 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: '20.x'
       - name: Install dependencies
         run: npm install
 
-      - name: Clean previous build
-        run: rm -rf public/build
+      - name: Clean build directory
+        run: |
+          rm -rf build/
+          rm -rf dist/
+          rm -rf public/build/
 
       - name: Run Build
         run: npm run build
