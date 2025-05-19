@@ -16,6 +16,10 @@ jobs:
           node-version: "20.x"
       - name: Install dependencies
         run: npm install
+
+      - name: Clean previous build
+        run: rm -rf build
+
       - name: Run Build
         run: npm run build
 
